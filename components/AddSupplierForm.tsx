@@ -48,7 +48,7 @@ function AddSupplierForm() {
         <div className="mb-6">
           <label
             htmlFor="suppliername-success"
-            className="block mb-2 text-sm font-medium text-green-700 dark:text-green-500"
+            className="block mb-2 text-sm font-medium text-green-700 dark:text-white"
           >
             Supplier name
           </label>
@@ -88,7 +88,7 @@ function AddSupplierForm() {
         <div className="mb-6">
           <label
             htmlFor="suppliername-error"
-            className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-500"
+            className="block mb-2 text-sm font-medium text-gray-700 dark:text-white"
           >
             Address
           </label>
@@ -130,7 +130,7 @@ function AddSupplierForm() {
           )}
         </div>
         <label className="block mb-6">
-          <span className="text-gray-700">City</span>
+          <span className="text-gray-700 dark:text-white">City</span>
           <input
             {...register("city", {
               required: true,
@@ -150,7 +150,7 @@ function AddSupplierForm() {
           )}
         </label>
         <label className="block mb-6">
-          <span className="text-gray-700">State/Province</span>
+          <span className="text-gray-700 dark:text-white">State/Province</span>
           <input
             {...register("state", {
               required: true,
@@ -167,7 +167,7 @@ function AddSupplierForm() {
           )}
         </label>
         <label className="block mb-6">
-          <span className="text-gray-700">Zip/Postal code</span>
+          <span className="text-gray-700 dark:text-white">Zip/Postal code</span>
           <input
             {...register("zip", {
               required: true,
@@ -184,7 +184,7 @@ function AddSupplierForm() {
           )}
         </label>
         <label className="block mb-6">
-          <span className="text-gray-700">Country</span>
+          <span className="text-gray-700 dark:text-white">Country</span>
           <input
             {...register("country", {
               required: true,

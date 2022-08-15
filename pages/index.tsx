@@ -11,7 +11,10 @@ export default function Home() {
 
   if (error) return <p>There is an error.</p>;
   return (
-    <div className="container">
+    <div
+      className="dark:bg-gray-800"
+      style={{ width: "100vw", height: "100vh" }}
+    >
       <Head>
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
