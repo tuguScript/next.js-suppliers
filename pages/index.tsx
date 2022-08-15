@@ -4,6 +4,7 @@ import Head from "next/head";
 import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import AddSupplierForm from "components/AddSupplierForm";
+import Layout from "components/Layouts";
 
 export default function Home() {
   const [error, isError] = React.useState(false);
@@ -11,20 +12,14 @@ export default function Home() {
 
   if (error) return <p>There is an error.</p>;
   return (
-    <div
-      className="dark:bg-gray-800"
-      style={{ width: "100vw", height: "100vh" }}
-    >
+    <div className="dark:bg-gray-800">
       <Head>
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <main>
+      <Layout>
         <AddSupplierForm />
-      </main>
-
-      <footer></footer>
+      </Layout>
     </div>
   );
 }
