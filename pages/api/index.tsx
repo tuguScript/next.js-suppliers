@@ -1,6 +1,5 @@
 import { ResponseError, Supplier } from "interfaces/index";
 import { NextApiRequest, NextApiResponse } from "next";
-import { createSupplier } from "util/api";
 const Database = require("@replit/database");
 const db = new Database();
 

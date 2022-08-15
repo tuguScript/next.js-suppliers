@@ -1,19 +1,42 @@
 import React from "react";
 
 function AddSupplierForm() {
+  const [form, setForm] = React.useState("");
+
+  function handleSubmit(event: any) {
+    event.preventDefault();
+    let x = {
+      name: "apple1111",
+      logo: "https://www.google.com",
+      address: "12345",
+    };
+    fetch("/api/createSupplier", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(x),
+    });
+  }
+
+  function handleSupplierNameChange(event: any) {
+    // setForm({ ...form, supplierName: event.target.value });
+  }
+
   return (
     <div className="xl:w-1/3 md:w-1/2 p-4 mx-auto">
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="mb-6">
           <label
-            htmlFor="username-success"
+            htmlFor="suppliername-success"
             className="block mb-2 text-sm font-medium text-green-700 dark:text-green-500"
           >
             Supplier name
           </label>
           <input
+            onChange={handleSupplierNameChange}
             type="text"
-            id="username-success"
+            id="suppliername-success"
             className="bg-green-50 border border-green-500 text-green-900 placeholder-green-700 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-green-100 dark:border-green-400"
             placeholder="Apple"
           />
@@ -24,36 +47,38 @@ function AddSupplierForm() {
         </div>
         <div>
           <label
-            htmlFor="username-error"
+            htmlFor="suppliername-error"
             className="block mb-2 text-sm font-medium text-red-700 dark:text-red-500"
           >
             Logo URL
           </label>
           <input
             type="text"
-            id="username-error"
+            id="suppliername-error"
             className="bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-red-100 dark:border-red-400"
             placeholder="Apple"
           />
           <p className="mt-2 text-sm text-red-600 dark:text-red-500">
-            <span className="font-medium">Oops!</span> Username already taken!
+            <span className="font-medium">Oops!</span> suppliername already
+            taken!
           </p>
         </div>
         <div>
           <label
-            htmlFor="username-error"
+            htmlFor="suppliername-error"
             className="block mb-2 text-sm font-medium text-red-700 dark:text-red-500"
           >
             Street
           </label>
           <input
             type="text"
-            id="username-error"
+            id="suppliername-error"
             className="bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-red-100 dark:border-red-400"
             placeholder="Apple"
           />
           <p className="mt-2 text-sm text-red-600 dark:text-red-500">
-            <span className="font-medium">Oops!</span> Username already taken!
+            <span className="font-medium">Oops!</span> suppliername already
+            taken!
           </p>
         </div>
         <div>
