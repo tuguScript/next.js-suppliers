@@ -1,3 +1,4 @@
+import { Supplier } from "interfaces";
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 
@@ -19,7 +20,23 @@ function AddSupplierForm() {
     watch,
     formState: { errors },
   } = useForm<IFormInput>();
-  const onSubmit: SubmitHandler<IFormInput> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<IFormInput> = (data) => {
+    console.log(data);
+    let supplier: Supplier = {
+      name: data.name,
+      logo: data.logo,
+      address: {
+        street: data.street,
+        city: data.city,
+        state: data.state,
+        zip: data.zip,
+      },
+    };
+    fetch("/api/createSupplier", {
+      method: "POST",
+      body: JSON.stringify(supplier),
+    });
+  };
   console.log("errors", errors);
 
   return (
