@@ -1,6 +1,13 @@
 import React from "react";
+import useSWR from "swr";
+
+const fetcher = (url: string) =>
+  fetch(url)
+    .then((res) => res.json())
+    .then((data) => console.log("data", data));
 
 function AddSupplierForm() {
+  const { data, error } = useSWR("/api", fetcher);
   const [form, setForm] = React.useState("");
 
   function handleSubmit(event: any) {
@@ -21,6 +28,10 @@ function AddSupplierForm() {
 
   function handleSupplierNameChange(event: any) {
     // setForm({ ...form, supplierName: event.target.value });
+  }
+
+  if (error) {
+    return <div>failed to load</div>;
   }
 
   return (
