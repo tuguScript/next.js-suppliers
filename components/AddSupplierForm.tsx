@@ -1,6 +1,7 @@
 import { Supplier } from "interfaces";
 import React from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import Router from "next/router";
 
 interface IFormInput {
   name: string;
@@ -38,6 +39,8 @@ function AddSupplierForm() {
         "Content-Type": "application/json",
       },
       body: JSON.stringify(supplier),
+    }).then((res) => {
+      Router.push("/");
     });
   };
   console.log("errors", errors);
