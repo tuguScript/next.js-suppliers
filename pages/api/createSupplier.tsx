@@ -29,6 +29,5 @@ export default (async function handler(
     }
   } else {
     res.status(500).json({ message: "no values" });
-
   }
 });
