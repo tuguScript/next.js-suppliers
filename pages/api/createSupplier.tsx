@@ -12,18 +12,23 @@ export default (async function handler(
   if (req.method !== "POST") {
     return res.status(405).json({ msg: "Method not allowed" });
   }
-  try {
-    db.get("suppliers").then((value: Supplier) => {
-      let newSupplier = {
-        name,
-        logo,
-        address
-      }
-      db.set("suppliers", [...value, newSupplier]).then(() => {
-        return res.status(200).json(newSupplier);
-      })
-    });
-  } catch (err) {
-    res.status(500).json({ message: "Something went wrong." });
+  if (name && logo && address) {
+    try {
+      db.get("suppliers").then((value: Supplier) => {
+        let newSupplier = {
+          name,
+          logo,
+          address
+        }
+        db.set("suppliers", [...value, newSupplier]).then(() => {
+          return res.status(200).json(newSupplier);
+        })
+      });
+    } catch (err) {
+      res.status(500).json({ message: "Something went wrong." });
+    }
+  } else {
+    res.status(500).json({ message: "no values" });
+
   }
 });
