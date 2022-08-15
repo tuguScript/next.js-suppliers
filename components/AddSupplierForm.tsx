@@ -1,42 +1,30 @@
 import React from "react";
-import useSWR from "swr";
+import { useForm, SubmitHandler } from "react-hook-form";
 
-const fetcher = (url: string) =>
-  fetch(url)
-    .then((res) => res.json())
-    .then((data) => console.log("data", data));
+interface IFormInput {
+  name: string;
+  logo: string;
+  street: string;
+  address: string;
+  city: string;
+  state: string;
+  zip: string;
+  country: string;
+}
 
 function AddSupplierForm() {
-  const { data, error } = useSWR("/api", fetcher);
-  const [form, setForm] = React.useState("");
-
-  function handleSubmit(event: any) {
-    event.preventDefault();
-    let x = {
-      name: "apple1111",
-      logo: "https://www.google.com",
-      address: "12345",
-    };
-    fetch("/api/createSupplier", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(x),
-    });
-  }
-
-  function handleSupplierNameChange(event: any) {
-    // setForm({ ...form, supplierName: event.target.value });
-  }
-
-  if (error) {
-    return <div>failed to load</div>;
-  }
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm<IFormInput>();
+  const onSubmit: SubmitHandler<IFormInput> = (data) => console.log(data);
+  console.log("errors", errors);
 
   return (
     <div className="xl:w-1/3 md:w-1/2 p-4 mx-auto">
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-6">
           <label
             htmlFor="suppliername-success"
@@ -45,99 +33,152 @@ function AddSupplierForm() {
             Supplier name
           </label>
           <input
-            onChange={handleSupplierNameChange}
+            {...register("name", { required: true })}
             type="text"
-            id="suppliername-success"
             className="bg-green-50 border border-green-500 text-green-900 placeholder-green-700 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5 dark:bg-green-100 dark:border-green-400"
             placeholder="Apple"
           />
-          <p className="mt-2 text-sm text-green-600 dark:text-green-500">
-            <span className="font-medium">Alright!</span> Supplier name
-            available!
-          </p>
+          {errors.name && (
+            <p className="mt-2 text-sm text-red-600 dark:text-red-500">
+              <span className="font-medium">{errors.name.type}</span>
+            </p>
+          )}
         </div>
-        <div>
+        <div className="mb-6">
           <label
             htmlFor="suppliername-error"
-            className="block mb-2 text-sm font-medium text-red-700 dark:text-red-500"
+            className="block mb-2 text-sm font-medium text-blue-700 dark:text-red-500"
           >
             Logo URL
           </label>
           <input
             type="text"
+            defaultValue={"https://placekitten.com/100/100"}
+            {...register("logo", { required: true })}
             id="suppliername-error"
-            className="bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-red-100 dark:border-red-400"
+            className="bg-blue-50 border border-blue-500 text-blue-900 placeholder-blue-700 text-sm rounded-lg focus:ring-yellow-500 focus:border-blue-500 block w-full p-2.5 dark:bg-red-100 dark:border-red-400"
             placeholder="Apple"
           />
-          <p className="mt-2 text-sm text-red-600 dark:text-red-500">
-            <span className="font-medium">Oops!</span> suppliername already
-            taken!
-          </p>
+          {errors.logo && (
+            <p className="mt-2 text-sm text-red-600 dark:text-red-500">
+              <span className="font-medium">{errors.logo.type}</span>
+            </p>
+          )}
         </div>
-        <div>
+        <div className="mb-6">
           <label
             htmlFor="suppliername-error"
-            className="block mb-2 text-sm font-medium text-red-700 dark:text-red-500"
+            className="block mb-2 text-sm font-medium text-gray-700 dark:text-gray-500"
+          >
+            Address
+          </label>
+          <input
+            type="text"
+            {...register("address", {
+              required: true,
+            })}
+            id="suppliername-error"
+            className="bg-blue-50 border border-blue-500 text-blue-900 placeholder-blue-700 text-sm rounded-lg focus:ring-yellow-500 focus:border-blue-500 block w-full p-2.5 dark:bg-red-100 dark:border-red-400"
+            placeholder=""
+          />
+          {errors.address && (
+            <p className="mt-2 text-sm text-red-600 dark:text-red-500">
+              <span className="font-medium">{errors.address.type}</span>
+            </p>
+          )}
+        </div>
+        <div className="mb-6">
+          <label
+            htmlFor="suppliername-error"
+            className="block mb-2 text-sm font-medium text-blue-700 dark:text-red-500"
           >
             Street
           </label>
           <input
             type="text"
+            {...register("street", {
+              required: true,
+            })}
             id="suppliername-error"
-            className="bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-red-100 dark:border-red-400"
-            placeholder="Apple"
+            className="bg-blue-50 border border-blue-500 text-blue-900 placeholder-blue-700 text-sm rounded-lg focus:ring-yellow-500 focus:border-blue-500 block w-full p-2.5 dark:bg-red-100 dark:border-red-400"
+            placeholder=""
           />
-          <p className="mt-2 text-sm text-red-600 dark:text-red-500">
-            <span className="font-medium">Oops!</span> suppliername already
-            taken!
-          </p>
-        </div>
-        <div>
-          <label className="block mb-6">
-            <span className="text-gray-700">Address line 1</span>
-            <input
-              name="address1"
-              type="text"
-              className="bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-red-100 dark:border-red-400"
-              placeholder=""
-            />
-          </label>
+          {errors.street && (
+            <p className="mt-2 text-sm text-red-600 dark:text-red-500">
+              <span className="font-medium">{errors.street.type}</span>
+            </p>
+          )}
         </div>
         <label className="block mb-6">
           <span className="text-gray-700">City</span>
           <input
+            {...register("city", {
+              required: true,
+              minLength: 5,
+              maxLength: 10,
+              pattern: /^[a-zA-Z]+$/,
+            })}
             name="city"
             type="text"
-            className="bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-red-100 dark:border-red-400"
+            className="bg-blue-50 border border-blue-500 text-blue-900 placeholder-blue-700 text-sm rounded-lg focus:ring-yellow-500 focus:border-blue-500 block w-full p-2.5 dark:bg-red-100 dark:border-red-400"
             placeholder=""
           />
+          {errors.city && (
+            <p className="mt-2 text-sm text-red-600 dark:text-red-500">
+              <span className="font-medium">{errors.city.type}</span>
+            </p>
+          )}
         </label>
         <label className="block mb-6">
           <span className="text-gray-700">State/Province</span>
           <input
+            {...register("state", {
+              required: true,
+            })}
             name="state"
             type="text"
-            className="bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-red-100 dark:border-red-400"
+            className="bg-blue-50 border border-blue-500 text-blue-900 placeholder-blue-700 text-sm rounded-lg focus:ring-yellow-500 focus:border-blue-500 block w-full p-2.5 dark:bg-red-100 dark:border-red-400"
             placeholder=""
           />
+          {errors.state && (
+            <p className="mt-2 text-sm text-red-600 dark:text-red-500">
+              <span className="font-medium">{errors.state.type}</span>
+            </p>
+          )}
         </label>
         <label className="block mb-6">
           <span className="text-gray-700">Zip/Postal code</span>
           <input
+            {...register("zip", {
+              required: true,
+            })}
             name="zip"
-            type="text"
-            className="bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-red-100 dark:border-red-400"
+            type="number"
+            className="bg-blue-50 border border-blue-500 text-blue-900 placeholder-blue-700 text-sm rounded-lg focus:ring-yellow-500 focus:border-blue-500 block w-full p-2.5 dark:bg-red-100 dark:border-red-400"
             placeholder=""
           />
+          {errors.zip && (
+            <p className="mt-2 text-sm text-red-600 dark:text-red-500">
+              <span className="font-medium">{errors.zip.type}</span>
+            </p>
+          )}
         </label>
         <label className="block mb-6">
           <span className="text-gray-700">Country</span>
           <input
+            {...register("country", {
+              required: true,
+            })}
             name="country"
             type="text"
-            className="bg-red-50 border border-red-500 text-red-900 placeholder-red-700 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 dark:bg-red-100 dark:border-red-400"
+            className="bg-blue-50 border border-blue-500 text-blue-900 placeholder-blue-700 text-sm rounded-lg focus:ring-yellow-500 focus:border-blue-500 block w-full p-2.5 dark:bg-red-100 dark:border-red-400"
             placeholder=""
           />
+          {errors.country && (
+            <p className="mt-2 text-sm text-red-600 dark:text-red-500">
+              <span className="font-medium">{errors.country.type}</span>
+            </p>
+          )}
         </label>
         <button
           type="submit"
