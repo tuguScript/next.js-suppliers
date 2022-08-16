@@ -8,11 +8,11 @@ type State = {};
 
 const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
-function SuppliersListView({}: Props) {
+function SuppliersListView({ }: Props) {
   const { data, error } = useSWR("/api", fetcher);
   if (data) {
     return (
-      <div className="grid grid-cols-3 gap-2">
+      <div className="grid grid-cols-1 gap-2 md:grid-cols-3">
         {data.map((supplier, i) => (
           <Card
             key={i}
