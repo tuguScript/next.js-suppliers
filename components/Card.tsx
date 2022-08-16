@@ -23,7 +23,7 @@ export default function Card({
           </h2>
         </div>
         <div className="flex-grow">
-          <p className="leading-relaxed text-base">{address}</p>
+          <p className="leading-relaxed text-base">{address.street}</p>
         </div>
       </div>
     </div>

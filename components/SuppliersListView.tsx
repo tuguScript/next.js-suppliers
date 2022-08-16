@@ -6,21 +6,28 @@ type Props = {};
 
 type State = {};
 
-const fetcher = (url: string) =>
-  fetch(url)
-    .then((res) => res.json())
-    .then((data) => console.log("data", data));
+const fetcher = (url: string) => fetch(url).then((res) => res.json());
 
 function SuppliersListView({}: Props) {
   const { data, error } = useSWR("/api", fetcher);
-  return (
-    <div className="grid grid-cols-3 gap-2">
-      <Card />
-      <Card />
-      <Card />
-      <Card />
-    </div>
-  );
+  if (data) {
+    return (
+      <div className="grid grid-cols-3 gap-2">
+        {data.map((supplier, i) => (
+          <Card
+            key={i}
+            name={supplier.name}
+            logo={supplier.logo}
+            address={supplier.address}
+          />
+        ))}
+      </div>
+    );
+  }
+  if (error) {
+    return <h1>Something wrong</h1>;
+  }
+  return <h1>loading</h1>;
 }
 
 export default SuppliersListView;
