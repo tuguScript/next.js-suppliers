@@ -5,6 +5,7 @@ import Image from "next/image";
 import styles from "../styles/Home.module.css";
 import AddSupplierForm from "components/AddSupplierForm";
 import Layout from "components/Layouts";
+import SuppliersListView from "components/SuppliersListView";
 
 export default function Home() {
   const [error, isError] = React.useState(false);
@@ -17,7 +18,9 @@ export default function Home() {
         <title>Create Next App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Layout></Layout>
+      <Layout>
+        <SuppliersListView />
+      </Layout>
     </div>
   );
 }

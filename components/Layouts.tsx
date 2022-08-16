@@ -12,7 +12,7 @@ const Layout = ({ preview, children }: Props) => {
       style={{ height: "100vh", width: "100vw", gridTemplateRows: "70px 1fr" }}
     >
       <Nav />
-      <main style={{ gridRow: "none" }}>{children}</main>
+      <main style={{ marginTop: 70 }}>{children}</main>
     </div>
   );
 };
